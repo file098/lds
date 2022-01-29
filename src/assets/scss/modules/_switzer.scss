@@ -1,0 +1,93 @@
+/**
+ * @license
+ *
+ * Font Family: Switzer
+ * Designed by: Jérémie Hornus
+ * URL: https:/www.fontshare.com/fonts/switzer
+ * © 2022 Indian Type Foundry
+ *
+ * Font Styles:
+ * Switzer Variable(Variable font)
+ * Switzer Variable Italic(Variable font)
+ * Switzer Thin
+ * Switzer Thin Italic
+ * Switzer Extralight
+ * Switzer Extralight Italic
+ * Switzer Light
+ * Switzer Light Italic
+ * Switzer Regular
+ * Switzer Italic
+ * Switzer Medium
+ * Switzer Medium Italic
+ * Switzer Semibold
+ * Switzer Semibold Italic
+ * Switzer Bold
+ * Switzer Bold Italic
+ * Switzer Extrabold         
+ * Switzer Extrabold Italic
+ * Switzer Black
+ * Switzer Black Italic
+ *
+*/
+
+@font-face {
+  font-family: 'Switzer-Thin';
+  src: url('../../fonts/thin/Switzer-Thin.woff2') format('woff2'),
+       url('../../fonts/thin/Switzer-Thin.woff') format('woff'),
+       url('../../fonts/thin/Switzer-Thin.ttf') format('truetype');
+       font-weight: 100;
+       font-display: swap;
+       font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Light';
+  src: url('../../fonts/light/Switzer-Light.woff2') format('woff2'),
+       url('../../fonts/light/Switzer-Light.woff') format('woff'),
+       url('../../fonts/light/Switzer-Light.ttf') format('truetype');
+       font-weight: 300;
+       font-display: swap;
+       font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Regular';
+  src: url('../../fonts/regular/Switzer-Regular.woff2') format('woff2'),
+       url('../../fonts/regular/Switzer-Regular.woff') format('woff'),
+       url('../../fonts/regular/Switzer-Regular.ttf') format('truetype');
+       font-weight: 400;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Switzer-Italic';
+  src: url('../../fonts/italic/Switzer-Italic.woff2') format('woff2'),
+       url('../../fonts/italic/Switzer-Italic.woff') format('woff'),
+       url('../../fonts/italic/Switzer-Italic.ttf') format('truetype');
+       font-weight: 400;
+       font-display: swap;
+       font-style: italic;
+}
+
+@font-face {
+  font-family: 'Switzer-Bold';
+  src: url('../../fonts/bold/Switzer-Bold.woff2') format('woff2'),
+       url('../../fonts/bold/Switzer-Bold.woff') format('woff'),
+       url('../../fonts/bold/Switzer-Bold.ttf') format('truetype');
+       font-weight: 700;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Switzer-Black';
+  src: url('../../fonts/black/Switzer-Black.woff2') format('woff2'),
+       url('../../fonts/black/Switzer-Black.woff') format('woff'),
+       url('../../fonts/black/Switzer-Black.ttf') format('truetype');
+       font-weight: 900;
+       font-display: swap;
+       font-style: normal;
+}
