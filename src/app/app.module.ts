@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { WorksComponent } from './works/works.component';
+import * as $ from 'jquery';
+
 
 @NgModule({
   declarations: [
