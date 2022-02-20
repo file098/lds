@@ -11,16 +11,16 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    $(document).on("mousemove", function (e) {
+    // $(document).on("mousemove", function (e) {
 
-      const x = e.pageX - 45;
-      const y = e.pageY - 45;
+    //   const x = e.pageX - 45;
+    //   const y = e.pageY - 45;
 
-      $('#circle').css({
-        left: x,
-        top: y
-      });
-    });
+    //   $('#circle').css({
+    //     left: x,
+    //     top: y
+    //   });
+    // });
     
   }
 
