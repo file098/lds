@@ -1,3 +1,5 @@
+@import '../../styles.scss';
+
 /* Classes */
 
 .navigation-link-wrapper {
@@ -16,14 +18,22 @@
   text-decoration: none;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  transition: all 1s ease;
+}
 /* ID */
 
 #header-wrapper {
+  top: 0;
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
+  background-color: var(--primary-color);
+  z-index: 2;
 }
 
 @media (max-width: 768px) {

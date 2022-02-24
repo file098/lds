@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/scss/modules/_switzer.scss";
 
-$primary_font: "Switzer-Regular";
 
-$primary_color: rgb(244, 247, 246);
+:root {
+  --primary-color: rgb(244, 247, 246);
+  --primary_font: "Switzer-Regular";
+}
 
 // font-weight
 $thin: 100;
@@ -20,10 +22,10 @@ $font-md: 18px;
 $font-lg: 20px;
 
 body {
-  font-family: $primary_font;
+  font-family: var(--primary_font);
   font-size: $font-md;
   font-weight: $regular;
-  background-color: $primary_color;
+  background-color: car(--primary_color);
 }
 
 a {

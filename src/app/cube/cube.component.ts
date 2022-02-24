@@ -4,7 +4,6 @@ import * as THREE from "three";
 @Component({
   selector: 'app-cube',
   templateUrl: './cube.component.html',
-  styleUrls: ['./cube.component.scss']
 })
 export class CubeComponent implements OnInit, AfterViewInit {
 
@@ -13,11 +12,11 @@ export class CubeComponent implements OnInit, AfterViewInit {
 
   //* Cube Properties
 
-  @Input() public rotationSpeedX: number = 0.05;
+  @Input() public rotationSpeedX: number = 0.01;
 
   @Input() public rotationSpeedY: number = 0.01;
 
-  @Input() public size: number = 200;
+  @Input() public size: number = 1000;
 
   @Input() public texture: string = "/assets/texture.jpg";
 
@@ -45,8 +44,8 @@ export class CubeComponent implements OnInit, AfterViewInit {
     return this.canvasRef.nativeElement;
   }
 
-  private geometry = new THREE.CircleGeometry();
-  private material = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1});
+  private geometry = new THREE.CircleGeometry(4);
+  private material = new THREE.LineBasicMaterial({ color: 0x313131, linewidth: 1});
   private cube: THREE.Mesh = new THREE.Mesh(this.geometry, this.material);
   private renderer!: THREE.WebGLRenderer;
   private scene!: THREE.Scene;

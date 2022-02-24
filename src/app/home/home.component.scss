@@ -1,7 +1,31 @@
-#circle {
+a {
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+app-cube {
     position: absolute;
-    background-color: black;
-    border-radius: 50%;
-    height: 5em;
-    width: 5em;
+    width: 100%;
+    z-index: -1;
+}
+
+.content-container {
+    margin: 10% 5% 0 5%;
+    display: flex;
+    flex-flow: column;
+}
+
+.content-container > :first-child {
+    justify-self: flex-start;
+}
+
+.content-container > :nth-child(2) {
+    align-self: center;
+}
+
+.content-container > :nth-child(3) {
+    align-self: flex-end;
 }
