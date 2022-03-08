@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { WorksComponent } from './works/works.component';
 import { CubeComponent } from './cube/cube.component';
 import * as $ from 'jquery';
+import { BlobComponent } from './blob/blob.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import * as $ from 'jquery';
     FooterComponent,
     HomeComponent,
     WorksComponent, 
-    CubeComponent
+    CubeComponent, BlobComponent
   ],
   imports: [
     BrowserModule,
