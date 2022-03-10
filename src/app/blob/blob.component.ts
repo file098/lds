@@ -8,38 +8,45 @@ import * as p5 from 'p5';
 })
 export class BlobComponent implements OnInit {
 
-  radius = 100;
+  radius = 200;
+  xoff = 0.0;
+  yoff = 0.0;
 
   constructor() { }
 
   ngOnInit() {
     const sketch = (s:any) => {
 
-      s.preload = () => {
-        // preload code
-      }
-
       s.setup = () => {
 
-        var cnv = s.createCanvas(s.windowWidth, s.windowHeight);
+        let cnv = s.createCanvas(s.windowWidth, s.windowHeight);
         cnv.parent('canvasContainer');
       };
 
       s.draw = () => {
-        s.background(205);
-        
-        s.rectMode(s.CENTER);
+
+        s.background(255)      
         s.translate(s.width / 2, s.height / 2);
+        s.fill(255);
 
-        s.beginShape()
-        for (let a = 0; a < s.TWO_PI; a += 0.1){
-          let offset = this.radius + s.map(a, this.radius, s.TWO_PI, 0, 10);
+        this.xoff += 0.01;
 
-          let x = offset * s.cos(a);
-          let y = offset * s.sin(a);
-          s.vertex(x, y);
+        s.beginShape();
+        let xoff = 0;
+        for (let a = 0; a < s.TWO_PI; a += 0.1) {
+
+          let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
+          let r = this.radius + offset;
+          let x = r * s.cos(a);
+          let y = r * s.sin(a);
+          //s.vertex(x, y);
+          xoff += 0.1;
+          s.ellipse(x, y, 10, 10);
         }
-        s.endShape(s.CLOSE);
+        s.endShape();
+
+        this.yoff += 0.01;
+
       };
     }
 

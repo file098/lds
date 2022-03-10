@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   scrollEvent = (event: any): void => {
     const scrollTop = event.target.scrollingElement.scrollTop;
     scrollTop > 0 ? this.sticky = true : this.sticky = false;
-    console.log(this.sticky);
 }
 
 }
