@@ -1,4 +1,6 @@
 #canvasContainer {
     z-index: -1; 
-    position: fixed;
+    position: absolute;
+    width: 100vh;
+    height: 100vh;
 }

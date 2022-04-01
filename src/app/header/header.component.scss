@@ -21,11 +21,11 @@
 .sticky {
   position: fixed;
   top: 0;
-  transition: all 1s ease;
 }
 /* ID */
 
 #header-wrapper {
+  position: absolute;
   top: 0;
   width: 100%;
   display: inline-flex;

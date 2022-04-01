@@ -2,20 +2,15 @@ a {
     cursor: pointer;
 }
 
-h1 {
-    font-size: 4em;
-}
-
-app-cube {
-    position: absolute;
-    width: 100%;
-    z-index: -1;
+.home-titles {
+    font-size:4em;
 }
 
 .content-container {
     margin: 10% 5% 0 5%;
     display: flex;
     flex-flow: column;
+    height:100vh;
 }
 
 .content-container > :first-child {

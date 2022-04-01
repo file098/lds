@@ -11,20 +11,18 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // $(document).on("mousemove", function (e) {
+    document.querySelectorAll('.home-titles').forEach(link => {
+      link.addEventListener("click", () => {
+        document.querySelector('.work-container')!.scrollIntoView({ behavior: 'smooth', block: 'start'});
+      });
+    })
 
-    //   const x = e.pageX - 45;
-    //   const y = e.pageY - 45;
-
-    //   $('#circle').css({
-    //     left: x,
-    //     top: y
-    //   });
-    // });
-    
   }
 
-  
+  redirectClick(event: MouseEvent): void {
+    console.log()
+   
+  }
 
 }
 
