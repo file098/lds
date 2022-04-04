@@ -8,6 +8,7 @@ import * as p5 from 'p5';
 })
 export class BlobComponent implements OnInit, AfterViewChecked {
   radius = 250;
+  radius2 = 150;
   xoff = 0.0;
   yoff = 0.0;
   headerWrapperHeight = 0;
@@ -54,8 +55,22 @@ export class BlobComponent implements OnInit, AfterViewChecked {
         }
         s.endShape();
 
+        s.beginShape();
+        for (let a = 0; a < s.TWO_PI; a += 0.05) {
+          let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
+          let r = this.radius2 + offset;
+          let x = r * s.cos(a);
+          let y = r * s.sin(a);
+          s.vertex(x, y);
+          xoff += 0.1;
+        }
+        s.endShape(s.CLOSE);
+ 
         this.yoff += 0.01;
       };
+
+
+      
     };
 
     let canvas = new p5(sketch);

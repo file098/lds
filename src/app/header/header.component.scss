@@ -32,8 +32,22 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   z-index: 2;
+  transition: background 0.5s ease-in-out;
+}
+
+#header-wrapper:hover {
+  background: #3c3c3c;
+}
+
+#header-wrapper a {
+  transition: color 0.5s ease-in-out;
+  color: #3c3c3c;
+}
+
+#header-wrapper:hover a {
+  color: white;
 }
 
 @media (max-width: 768px) {
