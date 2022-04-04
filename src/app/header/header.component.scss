@@ -22,6 +22,7 @@
   position: fixed;
   top: 0;
 }
+
 /* ID */
 
 #header-wrapper {
@@ -38,12 +39,12 @@
 }
 
 #header-wrapper:hover {
-  background: #3c3c3c;
+  background: var(--primary-dark-color);
 }
 
 #header-wrapper a {
   transition: color 0.5s ease-in-out;
-  color: #3c3c3c;
+  color: var(--primary-dark-color);
 }
 
 #header-wrapper:hover a {
