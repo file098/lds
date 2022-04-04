@@ -3,7 +3,7 @@
 
 
 :root {
-  --primary-color: rgb(244, 247, 246);
+  --primary-light-color: rgb(244, 247, 246);
   --primary-dark-color: #3c3c3c;
   --primary_font: "Switzer-Regular";
 }
@@ -26,7 +26,6 @@ body {
   font-family: var(--primary_font);
   font-size: $font-md;
   font-weight: $regular;
-  background-color: car(--primary_color);
 }
 
 a {
