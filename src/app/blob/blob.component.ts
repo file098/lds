@@ -2,102 +2,122 @@ import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 
 @Component({
-  selector: 'app-blob',
-  templateUrl: './blob.component.html',
-  styleUrls: ['./blob.component.scss'],
+	selector: 'app-blob',
+	templateUrl: './blob.component.html',
+	styleUrls: ['./blob.component.scss'],
 })
 export class BlobComponent implements OnInit {
-  radius = 250;
-  radius2 = 150;
-  xoff = 0.0;
-  yoff = 0.0;
-  headerWrapperHeight = 0;
-  dots = [{ x: 0, y: 0 }];
-  windowHeight = 0;
+	radius = 250;
+	radius2 = 150;
+	xoff = 0.0;
+	yoff = 0.0;
+	headerWrapperHeight = 0;
+	dots = [{ x: 0, y: 0 }];
+	lines = [{x1: 0, y1: 0, x2: 0, y2: 0}];
 
-  constructor() { }
+	constructor() { }
 
-  setupGrid(rows: number, columns: number, density: number, width: number, height: number,): void {
-    this.dots = [];
-    
-    var ratioW = height / columns * density; // ever "ratio" i need to put a dot
-    var ratioH = width / rows * density; // ever "ratio" i need to put a dot
+	setupGrid(rows: number, columns: number, density: number, width: number, height: number,): void {
+		this.dots = [];
 
-    for (var x = 0; x < width; x += ratioW) {
-      for (var y = 0; y < height; y += ratioH) {
-        this.dots.push({ x, y });
-      }
-    }
-    
-  };
+		var ratioW = height / density; // ever "ratio" i need to put a dot
+		var ratioH = width / density; // ever "ratio" i need to put a dot
 
-  ngOnInit() {
+		// for (var x = 0; x < width; x += ratioW) {
+		// 	for (var y = 0; y < height; y += ratioH) {
+		// 		this.dots.push({ x, y });
+		// 	}
+		// }
 
-    const header = document.querySelector('#header-wrapper');
-    if (header) { this.headerWrapperHeight = header.clientHeight; }
+		for (var i = 0; i < width; i += ratioW) {
+			this.lines.push({
+				x1: i,
+				y1: 0,
+				x2: i,
+				y2: width
+			});
+		}
+		for (i = 0; i < height; i += ratioH) {
+			this.lines.push({
+				x1: 0,
+				y1: i,
+				x2: width,
+				y2: i
+			});
+		}
 
-    const sketch = (s: any) => {
+	};
 
-      s.setup = () => {
-        this.windowHeight = s.windowHeight - this.headerWrapperHeight;
-        s.createCanvas(s.windowWidth, s.windowHeight - this.headerWrapperHeight).parent('canvasContainer');
-        
-        this.setupGrid(500, 500, 10, s.windowWidth, s.windowHeight);
-      };
+	ngOnInit() {
 
-      s.draw = () => {
-        s.background(255);
+		const header = document.querySelector('#header-wrapper');
+		if (header) { this.headerWrapperHeight = header.clientHeight; }
 
-        for (var count = 0; count < this.dots.length; count++) {
-          s.ellipse(this.dots[count].x, this.dots[count].y, 1, 1, 1);
-        }
+		const sketch = (s: any) => {
 
-        s.translate(s.width / 2, s.height / 2 - this.headerWrapperHeight);
-        s.fill(60);
-        this.xoff += 0.01;
+			s.setup = () => {
+				// this.windowHeight = s.windowHeight - this.headerWrapperHeight;
+				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
 
-        s.beginShape();
-        let xoff = 0;
+				this.setupGrid(500, 500, 35, s.windowWidth, s.windowHeight);
+			};
 
-        let xy = s.mouseX * 100 + s.mouseY;
+			s.draw = () => {
+				s.background(255);
 
-        for (let a = 0; a < s.TWO_PI; a += 0.05) {
-          let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
-          let r = this.radius + offset;
-          let x = r * s.cos(a);
-          let y = r * s.sin(a);
-          s.vertex(x, y);
-          xoff += 0.1;
-          //s.ellipse(x, y, 10, 10);
-        }
-        s.endShape();
+				// for (var count = 0; count < this.dots.length; count++) {
+				// 	s.ellipse(this.dots[count].x, this.dots[count].y, 1, 1, 1);
+				// }
 
-        s.fill(65);
-        s.beginShape();
-        for (let a = 0; a < s.TWO_PI; a += 0.05) {
-          let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
-          let r = this.radius2 + offset;
-          let x = r * s.cos(a);
-          let y = r * s.sin(a);
-          s.vertex(x, y);
-          xoff += 0.1;
-        }
-        s.endShape(s.CLOSE);
+				for (var i = 0; i < this.lines.length; i++) {
+					s.line(this.lines[i].x1, this.lines[i].y1,this.lines[i].x2, this.lines[i].y2);
+				}
 
-        this.yoff += 0.01;
+				s.translate(s.width / 2, s.height / 2 - this.headerWrapperHeight);
+				s.fill(60);
+				this.xoff += 0.01;
 
-      };
+				s.beginShape();
+				let xoff = 0;
 
-      s.windowResized = () => {
-        s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
-        // TODO: check why the window size is wrong 
-        this.setupGrid(0, 0, 15, s.windowWidth, s.windowHeight);
-      };
+				let xy = s.mouseX * 100 + s.mouseY;
 
+				for (let a = 0; a < s.TWO_PI; a += 0.05) {
+					let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
+					let r = this.radius + offset;
+					let x = r * s.cos(a);
+					let y = r * s.sin(a);
+					s.vertex(x, y);
+					xoff += 0.1;
+					//s.ellipse(x, y, 10, 10);
+				}
+				s.endShape();
 
-    };
+				s.fill(65);
+				s.beginShape();
+				for (let a = 0; a < s.TWO_PI; a += 0.05) {
+					let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
+					let r = this.radius2 + offset;
+					let x = r * s.cos(a);
+					let y = r * s.sin(a);
+					s.vertex(x, y);
+					xoff += 0.1;
+				}
+				s.endShape(s.CLOSE);
 
-    let canvas = new p5(sketch);
-  }
+				this.yoff += 0.01;
+
+			};
+
+			s.windowResized = () => {
+				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
+
+				this.setupGrid(0, 0, 15, s.windowWidth, s.windowHeight);
+			};
+
+		};
+
+		let canvas = new p5(sketch);
+	}
 
 }
