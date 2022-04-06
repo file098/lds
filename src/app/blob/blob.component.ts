@@ -6,7 +6,7 @@ import * as p5 from 'p5';
   templateUrl: './blob.component.html',
   styleUrls: ['./blob.component.scss'],
 })
-export class BlobComponent implements OnInit, AfterViewChecked {
+export class BlobComponent implements OnInit {
   radius = 250;
   radius2 = 150;
   xoff = 0.0;
@@ -17,10 +17,7 @@ export class BlobComponent implements OnInit, AfterViewChecked {
 
   constructor() { }
 
-  ngAfterViewChecked(): void {
-  }
-
-  setupGrid(rows: number, columns: number, density: number, height: number, width: number): void {
+  setupGrid(rows: number, columns: number, density: number, width: number, height: number,): void {
     this.dots = [];
     
     var ratioW = height / columns * density; // ever "ratio" i need to put a dot
@@ -44,7 +41,7 @@ export class BlobComponent implements OnInit, AfterViewChecked {
       s.setup = () => {
         this.windowHeight = s.windowHeight - this.headerWrapperHeight;
         s.createCanvas(s.windowWidth, s.windowHeight - this.headerWrapperHeight).parent('canvasContainer');
-        // TODO: check why the window size is wrong 
+        
         this.setupGrid(500, 500, 10, s.windowWidth, s.windowHeight);
       };
 
@@ -94,7 +91,7 @@ export class BlobComponent implements OnInit, AfterViewChecked {
       s.windowResized = () => {
         s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
         // TODO: check why the window size is wrong 
-        this.setupGrid(500, 500, 15, s.windowWidth * 2, s.windowHeight * 2);
+        this.setupGrid(0, 0, 15, s.windowWidth, s.windowHeight);
       };
 
 
