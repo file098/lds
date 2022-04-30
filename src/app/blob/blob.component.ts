@@ -6,114 +6,160 @@ import * as p5 from 'p5';
 	templateUrl: './blob.component.html',
 	styleUrls: ['./blob.component.scss'],
 })
+
 export class BlobComponent implements OnInit {
-	radius = 250;
-	radius2 = 150;
-	xoff = 0.0;
-	yoff = 0.0;
-	headerWrapperHeight = 0;
-	dots = [{ x: 0, y: 0 }];
-	lines = [{x1: 0, y1: 0, x2: 0, y2: 0}];
 
-	constructor() { }
+	vehicles : any[] = [];
 
-	setupGrid(rows: number, columns: number, density: number, width: number, height: number,): void {
-		this.dots = [];
-
-		var ratioW = height / density; // ever "ratio" i need to put a dot
-		var ratioH = width / density; // ever "ratio" i need to put a dot
-
-		// for (var x = 0; x < width; x += ratioW) {
-		// 	for (var y = 0; y < height; y += ratioH) {
-		// 		this.dots.push({ x, y });
-		// 	}
-		// }
-
-		for (var i = 0; i < width; i += ratioW) {
-			this.lines.push({
-				x1: i,
-				y1: 0,
-				x2: i,
-				y2: width
-			});
-		}
-		for (i = 0; i < height; i += ratioH) {
-			this.lines.push({
-				x1: 0,
-				y1: i,
-				x2: width,
-				y2: i
-			});
-		}
-
-	};
+	constructor() {}
 
 	ngOnInit() {
 
-		const header = document.querySelector('#header-wrapper');
-		if (header) { this.headerWrapperHeight = header.clientHeight; }
-
 		const sketch = (s: any) => {
 
-			s.setup = () => {
-				// this.windowHeight = s.windowHeight - this.headerWrapperHeight;
-				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
+			class Vehicle {
 
-				this.setupGrid(500, 500, 35, s.windowWidth, s.windowHeight);
-			};
+				target: any;
+				pos: any;
+				vel: any;
+				acc: any;
+				r: number;
+				maxspeed: number;
+				maxforce: number;
+				distance: number;
+				color: { r: number; g: number; b: number; };
+
+				constructor(x: number, y: number) {
+					//this.pos = createVector(random(width), random(height));
+					this.target = s.createVector(x, y);
+					this.pos = s.createVector(s.width / 2, s.height / 2);
+					this.vel = p5.Vector.random2D();
+					this.acc = s.createVector();
+					this.r = 5;
+					this.maxspeed = 10;
+					this.maxforce = 0.3;
+					this.distance = innerHeight * innerWidth / 10000;
+					this.color = { r: 255, g: 255, b: 255 };
+				}
+
+				behaviors() {
+					var arrive = this.arrive(this.target);
+					var mouse = s.createVector(s.mouseX, s.mouseY);
+					var flee = this.flee(mouse);
+
+
+					arrive.mult(1);
+					flee.mult(5);
+
+					this.applyForce(arrive);
+					this.applyForce(flee);
+				};
+
+				applyForce(f: number | p5.Vector) {
+					this.acc.add(f);
+				};
+
+				update() {
+					this.pos.add(this.vel);
+					this.vel.add(this.acc);
+					this.acc.mult(0);
+				};
+
+				show() {
+					s.stroke(this.color.r, this.color.g, this.color.b);
+					s.strokeWeight(this.r);
+					s.ellipse(this.pos.x, this.pos.y, 0.5)
+				};
+
+				arrive(target: p5.Vector) {
+					var desired = p5.Vector.sub(target, this.pos);
+					var d = desired.mag();
+					var speed = this.maxspeed;
+					if (d < 100) {
+						speed = s.map(d, 0, 100, 0, this.maxspeed);
+					}
+					desired.setMag(speed);
+					var steer = p5.Vector.sub(desired, this.vel);
+					steer.limit(this.maxforce);
+					return steer;
+				};
+
+				flee(target: p5.Vector) {
+					var desired = p5.Vector.sub(target, this.pos);
+					var d = desired.mag();
+					if (d < this.distance) {
+						desired.setMag(this.maxspeed);
+						desired.mult(-1);
+						var steer = p5.Vector.sub(desired, this.vel);
+						steer.limit(this.maxforce);
+						if (s.mouseIsPressed) {
+							this.changeColor(s.createVector(s.mouseX, s.mouseY))
+						}
+						else {
+							this.setColor(255, 255, 255);
+						}
+						return steer;
+					} else {
+						return s.createVector(0, 0);
+					}
+				}
+
+				setColor(r: number, g: number, b: number) {
+
+					this.color = {
+						r: r,
+						g: g,
+						b: b
+					}
+
+				}
+
+				changeColor(mousePosition: p5.Vector) {
+					let d = p5.Vector.sub(mousePosition, this.pos);
+					let magnitude = d.mag();
+					const main = 200;
+					const support = 50;
+					let r = s.map(magnitude, 0, support, 0, 255);
+					let g = s.map(magnitude, 0, main, 0, 255);
+					let b = s.map(magnitude, 0, support, 0, 255);
+					this.setColor(r, g, b);
+				}
+			}
+
+			function generatePoints(skip: number) {
+				let points = [];
+
+				for (let y = 5; y < s.windowHeight; y += skip) {
+					for (let x = 5; x < s.windowWidth; x += skip) {
+						points.push(new Vehicle(x, y));
+					}
+				}
+
+				return points;
+			}
+
+			s.setup = () => {
+				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
+				s.background(51);
+
+				this.vehicles = generatePoints(25);
+			}
 
 			s.draw = () => {
-				s.background(255);
-
-				// for (var count = 0; count < this.dots.length; count++) {
-				// 	s.ellipse(this.dots[count].x, this.dots[count].y, 1, 1, 1);
-				// }
-
-				for (var i = 0; i < this.lines.length; i++) {
-					s.line(this.lines[i].x1, this.lines[i].y1,this.lines[i].x2, this.lines[i].y2);
+				s.background(50);
+				for (var i = 0; i < this.vehicles.length; i++) {
+					var v = this.vehicles[i];
+					v.behaviors();
+					v.update();
+					v.show();
 				}
-
-				s.translate(s.width / 2, s.height / 2 - this.headerWrapperHeight);
-				s.fill(60);
-				this.xoff += 0.01;
-
-				s.beginShape();
-				let xoff = 0;
-
-				let xy = s.mouseX * 100 + s.mouseY;
-
-				for (let a = 0; a < s.TWO_PI; a += 0.05) {
-					let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
-					let r = this.radius + offset;
-					let x = r * s.cos(a);
-					let y = r * s.sin(a);
-					s.vertex(x, y);
-					xoff += 0.1;
-					//s.ellipse(x, y, 10, 10);
-				}
-				s.endShape();
-
-				s.fill(65);
-				s.beginShape();
-				for (let a = 0; a < s.TWO_PI; a += 0.05) {
-					let offset = s.map(s.noise(xoff, this.yoff), 0, 1, -25, 25);
-					let r = this.radius2 + offset;
-					let x = r * s.cos(a);
-					let y = r * s.sin(a);
-					s.vertex(x, y);
-					xoff += 0.1;
-				}
-				s.endShape(s.CLOSE);
-
-				this.yoff += 0.01;
-
-			};
+			}
 
 			s.windowResized = () => {
-				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
+				s.resizeCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
 
-				this.setupGrid(0, 0, 15, s.windowWidth, s.windowHeight);
-			};
+				this.vehicles = generatePoints(25);
+			}
 
 		};
 

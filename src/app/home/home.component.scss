@@ -7,10 +7,11 @@ a {
 }
 
 .content-container {
-    margin: 10% 5% 0 5%;
     display: flex;
     flex-flow: column;
     height:100vh;
+    justify-content: space-around;
+    margin: 0 4em;
 }
 
 .content-container > :first-child {
