@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     document.querySelectorAll('.home-titles').forEach(link => {
       link.addEventListener("click", () => {
-        document.querySelector('.work-container')!.scrollIntoView({ behavior: 'smooth', block: 'start'});
+        //document.querySelector('.work-container')!.scrollIntoView({ behavior: 'smooth', block: 'start'});
       });
     })
 

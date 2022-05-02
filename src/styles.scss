@@ -22,11 +22,13 @@ $primary-fs: 16px;
 $font-md: 18px;
 $font-lg: 20px;
 
+html,
 body {
   font-family: var(--primary_font);
   font-size: $font-md;
   font-weight: $regular;
   margin: 0;
+  overflow: hidden;
 }
 
 a {

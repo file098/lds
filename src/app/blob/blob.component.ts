@@ -38,7 +38,7 @@ export class BlobComponent implements OnInit {
 					this.r = 5;
 					this.maxspeed = 10;
 					this.maxforce = 0.3;
-					this.distance = innerHeight * innerWidth / 10000;
+					this.distance = 75;
 					this.color = { r: 255, g: 255, b: 255 };
 				}
 
@@ -105,13 +105,11 @@ export class BlobComponent implements OnInit {
 				}
 
 				setColor(r: number, g: number, b: number) {
-
 					this.color = {
 						r: r,
 						g: g,
 						b: b
 					}
-
 				}
 
 				changeColor(mousePosition: p5.Vector) {
@@ -129,8 +127,8 @@ export class BlobComponent implements OnInit {
 			function generatePoints(skip: number) {
 				let points = [];
 
-				for (let y = 5; y < s.windowHeight; y += skip) {
-					for (let x = 5; x < s.windowWidth; x += skip) {
+				for (let y = 10; y < s.windowHeight; y += skip) {
+					for (let x = 10; x < s.windowWidth; x += skip) {
 						points.push(new Vehicle(x, y));
 					}
 				}
@@ -156,7 +154,7 @@ export class BlobComponent implements OnInit {
 			}
 
 			s.windowResized = () => {
-				s.resizeCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
+				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
 
 				this.vehicles = generatePoints(25);
 			}
