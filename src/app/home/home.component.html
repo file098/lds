@@ -1,12 +1,26 @@
 <app-header></app-header>
 
-<app-blob></app-blob>
-
+<sketch style="background-color: white;"></sketch>
 
 <div class="content-container">
-    <a><h1 class="home-titles animate fadeIn one">I</h1></a>
+  <a><h1 class="home-titles animate fadeIn one">I</h1></a>
 
-    <a><h1 class="home-titles animate fadeIn two">am</h1></a>
+  <a><h1 class="home-titles animate fadeIn two">am</h1></a>
 
-    <a><h1 class="home-titles animate fadeIn three">lds</h1></a>
-</div> 
+  <div (click)="scroll('contacts')" class="contacts">
+    <h1 id="lds" class="home-titles animate fadeIn three label-lds"></h1>
+  </div>
+</div>
+
+<contacts></contacts>
+
+<style>
+  .contacts {
+    cursor: pointer;
+  }
+
+  contacts {
+      display: inline-block;
+      height: 100vh;
+  }
+</style>

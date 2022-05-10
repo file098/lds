@@ -3,7 +3,7 @@
 
 
 :root {
-  --primary-light-color: rgb(244, 247, 246);
+  --primary-light-color: #f4f7f6;
   --primary-dark-color: #3c3c3c;
   --primary_font: "Switzer-Regular";
 }
@@ -28,7 +28,11 @@ body {
   font-size: $font-md;
   font-weight: $regular;
   margin: 0;
-  overflow: hidden;
+  //overflow: hidden;
+}
+
+html > * {
+  background-color: var(--primary-dark-color);
 }
 
 a {

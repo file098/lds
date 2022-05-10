@@ -13,6 +13,11 @@ a {
     height:100vh;
     justify-content: space-around;
     margin: 0 4em;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .content-container > :first-child {
@@ -66,4 +71,35 @@ a {
 .fadeIn {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
+}
+
+#lds,
+#lds:after,
+#lds:before {
+    position: absolute;
+    transform: translateX(-100%);
+    margin: 0 auto;
+}
+
+#lds:before {
+    opacity: 1;
+    content: "lds";
+}
+
+#lds:after {
+    opacity: 0;
+    content: "contact";
+}
+
+#lds:after,
+#lds:before {
+    transition: opacity 0.3s linear;
+}
+
+#lds:hover:before {
+    opacity: 0;
+}
+
+#lds:hover:after {
+    opacity: 1;
 }

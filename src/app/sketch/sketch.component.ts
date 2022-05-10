@@ -1,15 +1,19 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import {  Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as p5 from 'p5';
 
 @Component({
-	selector: 'app-blob',
-	templateUrl: './blob.component.html',
-	styleUrls: ['./blob.component.scss'],
+	selector: 'sketch',
+	templateUrl: './sketch.component.html',
+	styleUrls: ['./sketch.component.scss'],
 })
 
-export class BlobComponent implements OnInit {
+export class SketchComponent implements OnInit, OnDestroy {
 
-	vehicles : any[] = [];
+	private sketch!: p5;
+	private skip = window.innerWidth / 30;
+	private vehicles: any[] = [];
+	@Input() init!: (element: ElementRef<HTMLElement>) => p5;
+	@ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLElement>;
 
 	constructor() {}
 
@@ -65,10 +69,10 @@ export class BlobComponent implements OnInit {
 					this.acc.mult(0);
 				};
 
-				show() {
+				show(size: number) {
 					s.stroke(this.color.r, this.color.g, this.color.b);
 					s.strokeWeight(this.r);
-					s.ellipse(this.pos.x, this.pos.y, 0.5)
+					s.ellipse(this.pos.x, this.pos.y, size)
 				};
 
 				arrive(target: p5.Vector) {
@@ -138,30 +142,40 @@ export class BlobComponent implements OnInit {
 
 			s.setup = () => {
 				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
-				s.background(51);
+				s.pixelDensity(1)
 
-				this.vehicles = generatePoints(25);
+				this.vehicles = generatePoints(this.skip);
 			}
 
 			s.draw = () => {
-				s.background(50);
+				s.background('#3c3c3c');
 				for (var i = 0; i < this.vehicles.length; i++) {
 					var v = this.vehicles[i];
 					v.behaviors();
 					v.update();
-					v.show();
+					let size = s.map(s.width, 0, 1920, 0.3, 5);
+					v.show(size);
 				}
 			}
 
 			s.windowResized = () => {
 				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
-
-				this.vehicles = generatePoints(25);
+				this.vehicles = generatePoints(this.skip);
 			}
 
 		};
 
-		let canvas = new p5(sketch);
+		this.sketch = new p5(sketch);
+	}
+
+	// I need to remove the sketch that was created before otherwise damage on performance
+	ngOnDestroy(): void {
+		this.sketch.remove();
+	}
+
+	refresh = () => {
+		this.sketch.remove();
+		this.sketch = this.init(this.canvas);
 	}
 
 }

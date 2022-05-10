@@ -7,9 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { WorksComponent } from './works/works.component';
-import { CubeComponent } from './cube/cube.component';
-import * as $ from 'jquery';
-import { BlobComponent } from './blob/blob.component';
+import { SketchComponent } from './sketch/sketch.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 
 @NgModule({
@@ -19,7 +18,8 @@ import { BlobComponent } from './blob/blob.component';
     FooterComponent,
     HomeComponent,
     WorksComponent, 
-    CubeComponent, BlobComponent
+    SketchComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,

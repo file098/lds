@@ -52,6 +52,17 @@
 }
 
 @media (max-width: 768px) {
+
+  #header-wrapper {
+    background: var(--primary-dark-color);
+    z-index: 2;
+    transition: background 0.5s ease-in-out;
+  }
+
+  #header-wrapper a {
+    color: var(--primary-light-color);
+  }
+
   .logo {
     padding: 0 5px;
   }
