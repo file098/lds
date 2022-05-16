@@ -1,26 +1,32 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 
-<sketch style="background-color: white;"></sketch>
-
-<div class="content-container">
-  <a><h1 class="home-titles animate fadeIn one">I</h1></a>
-
-  <a><h1 class="home-titles animate fadeIn two">am</h1></a>
-
-  <div (click)="scroll('contacts')" class="contacts">
-    <h1 id="lds" class="home-titles animate fadeIn three label-lds"></h1>
+<div class="page">
+  <sketch style="background-color: white;"></sketch>
+  <div class="content-container">
+    <a><h1 class="home-titles animate fadeIn one">I</h1></a>
+  
+    <a><h1 class="home-titles animate fadeIn two">am</h1></a>
+  
+    <a><h1 (click)="scroll('.page2')" class="home-titles animate fadeIn three">lds</h1></a>
+    <!-- <div (click)="scroll('contacts')" class="contacts">
+      <h1 id="lds" class="home-titles animate fadeIn three label-lds"></h1>
+    </div> -->
   </div>
 </div>
 
-<contacts></contacts>
+<div class="page page2">
+  <contacts></contacts>
+</div>
+
 
 <style>
+
+  .page {
+    height: 100vh;
+  }
+
   .contacts {
     cursor: pointer;
   }
 
-  contacts {
-      display: inline-block;
-      height: 100vh;
-  }
 </style>

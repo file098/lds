@@ -3,7 +3,7 @@ a {
 }
 
 .home-titles {
-    font-size:4em;
+    font-size: 4em;
     color: white;
 }
 
@@ -12,7 +12,7 @@ a {
     flex-flow: column;
     height:100vh;
     justify-content: space-around;
-    margin: 0 4em;
+    margin: auto 10%;
 
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -32,7 +32,8 @@ a {
     align-self: flex-end;
 }
 
-/*=== Trigger  ===*/
+/*=== ANIMATIONS  ===*/
+
 .animate {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -73,33 +74,10 @@ a {
     animation-name: fadeIn;
 }
 
-#lds,
-#lds:after,
-#lds:before {
-    position: absolute;
-    transform: translateX(-100%);
-    margin: 0 auto;
-}
 
-#lds:before {
-    opacity: 1;
-    content: "lds";
-}
-
-#lds:after {
-    opacity: 0;
-    content: "contact";
-}
-
-#lds:after,
-#lds:before {
-    transition: opacity 0.3s linear;
-}
-
-#lds:hover:before {
-    opacity: 0;
-}
-
-#lds:hover:after {
-    opacity: 1;
+@media screen and (max-width: 767px) {
+    .content-container {
+        justify-content: space-around;
+        margin: 0 5%;
+    }
 }

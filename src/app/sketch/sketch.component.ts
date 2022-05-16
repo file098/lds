@@ -1,5 +1,6 @@
 import {  Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as p5 from 'p5';
+import { DARK_COLOR } from '../constants';
 
 @Component({
 	selector: 'sketch',
@@ -10,12 +11,12 @@ import * as p5 from 'p5';
 export class SketchComponent implements OnInit, OnDestroy {
 
 	private sketch!: p5;
-	private skip = window.innerWidth / 30;
+	private skip: number = 0;
 	private vehicles: any[] = [];
 	@Input() init!: (element: ElementRef<HTMLElement>) => p5;
 	@ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLElement>;
 
-	constructor() {}
+	constructor() {	}
 
 	ngOnInit() {
 
@@ -42,7 +43,7 @@ export class SketchComponent implements OnInit, OnDestroy {
 					this.r = 5;
 					this.maxspeed = 10;
 					this.maxforce = 0.3;
-					this.distance = 75;
+					this.distance = s.map(s.width / s.height, 0, 10, 25, 200);
 					this.color = { r: 255, g: 255, b: 255 };
 				}
 
@@ -50,7 +51,6 @@ export class SketchComponent implements OnInit, OnDestroy {
 					var arrive = this.arrive(this.target);
 					var mouse = s.createVector(s.mouseX, s.mouseY);
 					var flee = this.flee(mouse);
-
 
 					arrive.mult(1);
 					flee.mult(5);
@@ -133,7 +133,9 @@ export class SketchComponent implements OnInit, OnDestroy {
 
 				for (let y = 10; y < s.windowHeight; y += skip) {
 					for (let x = 10; x < s.windowWidth; x += skip) {
-						points.push(new Vehicle(x, y));
+						let vehicle = new Vehicle(x, y)
+						points.push(vehicle);
+						
 					}
 				}
 
@@ -143,12 +145,12 @@ export class SketchComponent implements OnInit, OnDestroy {
 			s.setup = () => {
 				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
 				s.pixelDensity(1)
-
+				this.skipSetter(25);
 				this.vehicles = generatePoints(this.skip);
 			}
 
 			s.draw = () => {
-				s.background('#3c3c3c');
+				s.background(DARK_COLOR);
 				for (var i = 0; i < this.vehicles.length; i++) {
 					var v = this.vehicles[i];
 					v.behaviors();
@@ -159,7 +161,9 @@ export class SketchComponent implements OnInit, OnDestroy {
 			}
 
 			s.windowResized = () => {
+				s.clear();
 				s.createCanvas(s.windowWidth, s.windowHeight).parent('canvasContainer');
+				this.skipSetter(25);
 				this.vehicles = generatePoints(this.skip);
 			}
 
@@ -176,6 +180,10 @@ export class SketchComponent implements OnInit, OnDestroy {
 	refresh = () => {
 		this.sketch.remove();
 		this.sketch = this.init(this.canvas);
+	}
+
+	skipSetter(spaceBetween: number): void {
+		this.skip = Math.floor(window.innerWidth / spaceBetween);
 	}
 
 }

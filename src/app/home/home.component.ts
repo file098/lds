@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-home',
@@ -25,10 +24,10 @@ export class HomeComponent implements OnInit {
 
 	scroll(target: string) {
 		if (target) {
-			console.log("clicked")
 			document.querySelector(target)!.scrollIntoView({
 				behavior: "smooth",
 				block: "end",
+				inline: "start"
 			});
 		}
 	}

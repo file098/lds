@@ -1,0 +1,1 @@
+export const DARK_COLOR : string = '#3f3f3f';
