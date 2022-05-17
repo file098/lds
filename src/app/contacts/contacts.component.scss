@@ -1,8 +1,11 @@
+/* ##### LIST & ICONS ##### */
+
 ul {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 
 ul li {
@@ -67,4 +70,22 @@ ul li:nth-child(3) a:before {
 
 ul li:nth-child(4) a:before {
   background: rgb(225, 48, 108);
+}
+
+/* ##### NAV ARROW ##### */
+
+.arrow-container {
+  cursor: pointer;
+  padding-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.arrow {
+  border: 1px solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 10px;
+  transform: rotate(-135deg);
 }

@@ -1,4 +1,4 @@
-import {  Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as p5 from 'p5';
 import { DARK_COLOR } from '../constants';
 
@@ -16,7 +16,7 @@ export class SketchComponent implements OnInit, OnDestroy {
 	@Input() init!: (element: ElementRef<HTMLElement>) => p5;
 	@ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLElement>;
 
-	constructor() {	}
+	constructor() { }
 
 	ngOnInit() {
 
@@ -135,7 +135,7 @@ export class SketchComponent implements OnInit, OnDestroy {
 					for (let x = 10; x < s.windowWidth; x += skip) {
 						let vehicle = new Vehicle(x, y)
 						points.push(vehicle);
-						
+
 					}
 				}
 
@@ -172,11 +172,6 @@ export class SketchComponent implements OnInit, OnDestroy {
 		this.sketch = new p5(sketch);
 	}
 
-	// I need to remove the sketch that was created before otherwise damage on performance
-	ngOnDestroy(): void {
-		this.sketch.remove();
-	}
-
 	refresh = () => {
 		this.sketch.remove();
 		this.sketch = this.init(this.canvas);
@@ -186,4 +181,8 @@ export class SketchComponent implements OnInit, OnDestroy {
 		this.skip = Math.floor(window.innerWidth / spaceBetween);
 	}
 
+	// I need to remove the sketch that was created before otherwise damage on performance
+	ngOnDestroy(): void {
+		this.sketch.remove();
+	}
 }

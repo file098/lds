@@ -12,4 +12,8 @@ export class ContactsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  scrollTop(): void {
+    document.body.scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
 }

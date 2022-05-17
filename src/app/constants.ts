@@ -1,1 +1,1 @@
-export const DARK_COLOR : string = '#3f3f3f';
+export const DARK_COLOR : string = '#3c3c3c';
