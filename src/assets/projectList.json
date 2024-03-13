@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "title": "01 Club Recordo",
+      "desc": "Club Recordo è un progetto nato in ambito musicale con la volontà di offrire alla community la possibilità di usufruire di uno spazio (fisico e virtuale) safe e inclusivo all’interno del quale vivere la musica come protagonista assoluta, e non come supporto di backgorund. In un mondo che corre e dove i suoni sono tanti, troppi, e non si ha la possibilità di occupare del tempo per ascoltare veramente, Club Recordo vuole educare chi lo desidera a un ascolto consapevole e completo",
+      "linkText": "Instagram page",
+      "link": "https://www.instagram.com/clubrecordo/",
+      "media": "/videos/clubrecordo.mp4"
+    },
+    {
+      "title": "02 Aphex Twin: Bucephalus Transposed",
+      "desc": "Aphex Twin is an artist with the ability to compose music by juxtaposing even very diverse sonic elements, following rules and algorithms that give a sense of cohesion. In this reinterpretation of Bucephalus Bouncing Ball, letters transform into atoms, wandering cells that organize and disorganize themselves, retracing the sonic paths of the artist. Full video: https://vimeo.com/470104310 motion graphics",
+      "link": "www.google.it",
+      "linkText": "Website",
+      "media": "/videos/aphextwin.mp4"
+    }
+  ]
+}
