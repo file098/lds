@@ -11,7 +11,7 @@
       class="carousel__slide"
       @click="handleClick($event)"
     >
-      <Project :project="project" :title="project.title"></Project>
+      <Project :project="project"></Project>
     </Slide>
   </Carousel>
   <Canvas></Canvas>
@@ -25,7 +25,7 @@ import Canvas from "./Canvas.vue";
 import Project from "./Project.vue";
 
 import "vue3-carousel/dist/carousel.css";
-import projectList from "@/assets/projectList.json"; // Adjust the path as necessary
+import projectList from "@/assets/projectList.json";
 
 export default defineComponent({
   name: "CarouselComponent",

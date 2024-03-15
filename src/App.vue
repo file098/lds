@@ -1,17 +1,20 @@
 <template>
   <Header></Header>
-  <CarouselComponent></CarouselComponent>
+  <Carousel></Carousel>
+  <!-- <Landing></Landing> -->
 </template>
 
 <script>
-import CarouselComponent from "@/components/Carousel.vue";
+import Carousel from "@/components/Carousel.vue";
 import Header from "./components/Header.vue";
+// import Landing from "./components/Landing.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    CarouselComponent,
+    Carousel,
+    // Landing
   },
 };
 </script>

@@ -14,10 +14,6 @@ il testo usa la curva gauss per entrare, fare in modo che al keyfranme 50%, l'op
 
 ## usa video di vimeo, non caricamento locale
 
-# descrizione
-
-ha una larghezza fissa e l'altezza variabile, height: fit-content. ricordati di cambiare le variabili per l'altezza del main
-
 ## controlla formato animazione lottie per il loading
 
 ## Parallax effect
@@ -25,8 +21,6 @@ ha una larghezza fissa e l'altezza variabile, height: fit-content. ricordati di 
 gioca con p5.js oppure three.js per creare un orbit control per il logo in 3d
 vedi esempio: https://p5js.org/examples/3d-orbit-control.html
 da mettere nelle info
-
-## sistema line height per i bottoni
 
 ### Debito tecnino
 

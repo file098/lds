@@ -27,6 +27,9 @@ export default defineComponent({
 
 .link__wrapper {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .right-arrow {
