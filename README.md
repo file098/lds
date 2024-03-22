@@ -27,3 +27,8 @@ da mettere nelle info
 Dynamic Favicon Darkmode
 funzione che prende video calcola colore medio e lo assegna alla description
 fare in modo che cambi next/prev in pallino
+
+
+# Rivedi font
+
+# alleggersci i video

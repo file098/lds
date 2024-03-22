@@ -1,47 +1,66 @@
 <template>
-  <div class="loading-page">
-    <Vue3Lottie
-      ref="anim"
-      :animationData="animation"
-      :speed="1"
-      :direction="forward"
-      :autoPlay="true"
-      :loop="false"
-      @onComplete="stopAnimation"
-    />
+  <div v-if="!videosLoaded" class="video-loader">
+    <!-- Your loading animation goes here -->
+    <div class="loader-animation">
+      <!-- Example: Using a spinner -->
+      <h1>ciao</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import animation from "@/assets/lds-logo-animation.json";
-import { Vue3Lottie } from "vue3-lottie";
-
-export default defineComponent({
-  name: "LandingComponent",
-  components: { Vue3Lottie },
+export default {
+  name: "LandingComponant",
   data() {
     return {
-      animation,
+      videosLoaded: false,
     };
   },
+  mounted() {
+    this.checkVideoLoading();
+  },
   methods: {
-    play() {
-      this.$refs["anim"].play();
-    },
-    stopAnimation() {
-      this.$refs["anim"].stop();
+    checkVideoLoading() {
+      const videos = document.querySelectorAll("video");
+
+      let loadedCount = 0;
+      videos.forEach((video) => {
+        if (video.readyState >= 4) {
+          loadedCount++;
+        } else {
+          video.addEventListener("loadeddata", () => {
+            loadedCount++;
+            if (loadedCount === videos.length) {
+              this.videosLoaded = true;
+            }
+          });
+        }
+      });
+
+      // If all videos are already loaded
+      if (loadedCount === videos.length) {
+        this.videosLoaded = true;
+      }
     },
   },
-});
+};
 </script>
 
 <style scoped>
-.loading-page {
+.video-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  z-index: 9999; /* Ensure it's above everything else */
+}
+
+.loader-animation {
+  /* Add your loader animation styles here */
 }
 </style>

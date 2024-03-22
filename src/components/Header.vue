@@ -1,37 +1,39 @@
 <template>
-  <ButtonComponent
-    class="info-button"
-    :opened="infoVisible"
-    :textBox="'lds'"
-    @click="showInfo"
-  />
-  <div class="logo-wrapper">
-    <img class="lds-logo" src="../assets/lds-logo.svg" alt="lds" />
-  </div>
-
-  <div
-    class="info-container"
-    :style="{
-      transform: infoVisible ? 'translateY(0)' : 'translateY(-100%)',
-    }"
-  >
-    <div class="title"><p>Services</p></div>
-    <div class="canvas__container">
-      <Canvas></Canvas>
+  <header>
+    <ButtonComponent
+      class="info-button"
+      :opened="infoVisible"
+      :textBox="'lds'"
+      @click="showInfo"
+    />
+    <div class="logo-wrapper">
+      <img class="lds-logo" src="../assets/lds-logo.svg" alt="lds" />
     </div>
-    <div class="contacts__wrapper">
-      <p class="contacts__title">contatti</p>
-      <div class="contacts">
-        <a href="mailto:delsal.lorenzo@gmail.com" class="entry"
-          >delsal.lorenzo@gmail.com</a
-        >
-        <span class="entry">+39 331 2921 807</span>
-        <a href="https://www.instagram.com/lorenzodelsal/" class="entry"
-          >@lorenzodelsal</a
-        >
+
+    <div
+      class="info-container"
+      :style="{
+        transform: infoVisible ? 'translateY(0)' : 'translateY(-100%)',
+      }"
+    >
+      <div class="title"><p>Services</p></div>
+      <div class="canvas__container">
+        <Canvas></Canvas>
+      </div>
+      <div class="contacts__wrapper">
+        <p class="contacts__title">contatti</p>
+        <div class="contacts">
+          <a href="mailto:delsal.lorenzo@gmail.com" class="entry"
+            >delsal.lorenzo@gmail.com</a
+          >
+          <span class="entry">+39 331 2921 807</span>
+          <a href="https://www.instagram.com/lorenzodelsal/" class="entry"
+            >@lorenzodelsal</a
+          >
+        </div>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -100,7 +102,6 @@ export default defineComponent({
   flex-flow: column;
 
   margin: 0;
-  font: 600 16px OverusedGroteskSemiBold, sans-serif;
   color: #000;
   background-color: rgb(220, 220, 220);
   z-index: 99;
@@ -122,10 +123,10 @@ export default defineComponent({
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 
     & .contacts__title {
-      margin-left: 1rem;
+      margin-left: 10px;
     }
 
     & .contacts {

@@ -1,15 +1,18 @@
 <template>
-  <div class="carousel__item">
-    <div
-      class="video-background"
-      v-lazy="videoBackground"
-      :style="{
-        backgroundImage: `url(${project.media})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        backgroundSize: 'cover',
-      }"
-    >
+  <div class="carousel__item" ref="carouselItem">
+    <div class="video-wrapper">
+      <video
+        v-show="shouldLoadVideo"
+        ref="videoElement"
+        playsinline
+        muted
+        autoplay
+        loop
+        class="video"
+      >
+        <source :src="project.media" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <ButtonComponent
         :textBox="project.title"
         :opened="descriptionOpened"
@@ -31,7 +34,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import { lazy } from "vue-lazyload";
 import ButtonComponent from "@/components/Button.vue";
 import LinkComponent from "@/components/Link.vue";
 import "vue3-carousel/dist/carousel.css";
@@ -42,17 +44,13 @@ export default defineComponent({
     ButtonComponent,
     LinkComponent,
   },
-  directives: {
-    lazy,
-  },
   data() {
     return {
       descriptionOpened: false,
-      videoBackground: null,
+      shouldLoadVideo: false, // Flag for lazy loading
     };
   },
   props: {
-    title: { type: String },
     project: {
       title: { type: String },
       desc: { type: String },
@@ -61,19 +59,29 @@ export default defineComponent({
       media: { type: String },
     },
   },
-  // watch: {
-  //   "project.media": {
-  //     handler(newVal) {
-  //       this.videoBackground = `${newVal}`;
-  //     },
-  //     immediate: true,
-  //   },
-  // },
   methods: {
     toggleDescription() {
       this.descriptionOpened = !this.descriptionOpened;
-      console.log(this.descriptionOpened);
     },
+    handleIntersection(entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // If the carousel item is intersecting with the viewport
+          // Set shouldLoadVideo to true to trigger lazy loading of video
+        }
+      });
+    },
+  },
+  mounted() {
+    // Intersection Observer setup
+    const options = {
+      root: null, // Use viewport as root
+      rootMargin: "50px", // No margin
+      threshold: 0.1, // Trigger when 50% of the element is visible
+    };
+
+    const observer = new IntersectionObserver(this.handleIntersection, options);
+    observer.observe(this.$refs.carouselItem); // Observe the carousel item
   },
 });
 </script>
@@ -127,7 +135,6 @@ export default defineComponent({
   height: 100vh;
   width: 100vw;
   background-color: rgb(16, 185, 129);
-  font-size: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -167,6 +174,7 @@ export default defineComponent({
 }
 
 .description__paragraph {
+  margin-left: 10px;
   flex: 2;
   text-align: start;
 }
@@ -176,5 +184,28 @@ export default defineComponent({
   justify-content: flex-end;
   align-items: flex-end;
   padding: 1rem;
+}
+
+video {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.video-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.header {
+  position: relative;
+  color: white;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
 }
 </style>

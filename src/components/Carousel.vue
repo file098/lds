@@ -46,7 +46,7 @@ export default defineComponent({
   },
   methods: {
     handleClick(event) {
-      if (event.target.className == "video-background") {
+      if (event.target.className == "video") {
         const clickX = event.clientX;
         if (clickX > window.innerWidth / 2) {
           this.$refs.myCarousel.next();

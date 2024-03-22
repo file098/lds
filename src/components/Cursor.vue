@@ -19,8 +19,6 @@ export default defineComponent({
   },
   methods: {
     handleMouseMove(event) {
-      // this.cursorX = event.clientX;
-      // this.cursorY = event.clientY;
       this.cursorLabel =
         event.clientX > window.innerWidth / 2 ? "Next" : "Prev";
     },
