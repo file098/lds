@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cursor-label"
+    class="cursor__label"
     :style="{ top: cursorY + 'px', left: cursorX + 'px' }"
   >
     {{ label }}
@@ -27,7 +27,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.cursor-label {
+.cursor__label {
   position: absolute;
   font-size: 24px;
   color: black;
@@ -35,6 +35,12 @@ export default defineComponent({
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
   filter: invert(1);
-  z-index: 1;
+  z-index: 2;
+}
+
+@media screen and (max-width: 800px) {
+  .cursor__label {
+    display: none;
+  }
 }
 </style>

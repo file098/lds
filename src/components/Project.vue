@@ -2,12 +2,12 @@
   <div class="carousel__item" ref="carouselItem">
     <div class="video-wrapper">
       <video
-        v-show="shouldLoadVideo"
         ref="videoElement"
-        playsinline
-        muted
+        preload
         autoplay
+        muted
         loop
+        playsinline
         class="video"
       >
         <source :src="project.media" type="video/mp4" />
@@ -47,7 +47,6 @@ export default defineComponent({
   data() {
     return {
       descriptionOpened: false,
-      shouldLoadVideo: false, // Flag for lazy loading
     };
   },
   props: {
@@ -63,78 +62,15 @@ export default defineComponent({
     toggleDescription() {
       this.descriptionOpened = !this.descriptionOpened;
     },
-    handleIntersection(entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // If the carousel item is intersecting with the viewport
-          // Set shouldLoadVideo to true to trigger lazy loading of video
-        }
-      });
-    },
-  },
-  mounted() {
-    // Intersection Observer setup
-    const options = {
-      root: null, // Use viewport as root
-      rootMargin: "50px", // No margin
-      threshold: 0.1, // Trigger when 50% of the element is visible
-    };
-
-    const observer = new IntersectionObserver(this.handleIntersection, options);
-    observer.observe(this.$refs.carouselItem); // Observe the carousel item
   },
 });
 </script>
 
 <style scoped lang="scss">
-.carousel__slide--sliding {
-  transition: transform 3s cubic-bezier(1, 0, 0, 0.9);
-}
-
-.carousel__slide {
-  padding: 5px;
-}
-
-.carousel__viewport {
-  perspective: 2000px;
-}
-
-.carousel__track {
-  transform-style: preserve-3d;
-}
-
-.carousel__slide--sliding {
-  transition: 0.5s;
-}
-
-.carousel__slide {
-  opacity: 0.9;
-  transform: rotateY(-20deg) scale(0.9);
-}
-
-.carousel__slide--active ~ .carousel__slide {
-  transform: rotateY(20deg) scale(0.9);
-}
-
-.carousel__slide--prev {
-  opacity: 1;
-  transform: rotateY(-10deg) scale(0.95);
-}
-
-.carousel__slide--next {
-  opacity: 1;
-  transform: rotateY(10deg) scale(0.95);
-}
-
-.carousel__slide--active {
-  opacity: 1;
-  transform: rotateY(0) scale(1.1);
-}
-
 .carousel__item {
-  height: 100vh;
-  width: 100vw;
-  background-color: rgb(16, 185, 129);
+  height: 100svh;
+  width: 100svw;
+  background: black;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -146,8 +82,8 @@ export default defineComponent({
   }
 
   & .video-background {
-    width: 100vw;
-    height: 100vh;
+    width: 100svw;
+    height: 100svh;
     background-size: cover;
 
     display: flex;

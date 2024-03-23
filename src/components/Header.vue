@@ -16,7 +16,9 @@
         transform: infoVisible ? 'translateY(0)' : 'translateY(-100%)',
       }"
     >
-      <div class="title"><p>Services</p></div>
+      <div class="title">
+        <p>Services</p>
+      </div>
       <div class="canvas__container">
         <Canvas></Canvas>
       </div>
@@ -94,7 +96,7 @@ export default defineComponent({
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100svw;
   height: 100%;
   max-height: 90vh;
 

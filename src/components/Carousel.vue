@@ -1,44 +1,51 @@
 <template>
-  <Cursor :label="cursorLabel" :cursorX="cursorX" :cursorY="cursorY"></Cursor>
-  <Carousel
-    ref="myCarousel"
-    :wrap-around="true"
+  <Cursor :label="cursorLabel" :cursorX="cursorX" :cursorY="cursorY" />
+  <swiper
+    :loop="true"
+    effect="cube"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
     @mousemove="handleMouseMove($event)"
   >
-    <Slide
+    <SwiperSlide
       v-for="project in this.slides"
       :key="project"
       class="carousel__slide"
       @click="handleClick($event)"
     >
-      <Project :project="project"></Project>
-    </Slide>
-  </Carousel>
-  <Canvas></Canvas>
+      <Project :project="project" />
+    </SwiperSlide>
+    ...
+  </swiper>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import { Carousel, Slide } from "vue3-carousel";
 import Cursor from "./Cursor.vue";
-import Canvas from "./Canvas.vue";
 import Project from "./Project.vue";
-
-import "vue3-carousel/dist/carousel.css";
 import projectList from "@/assets/projectList.json";
+
+import { Swiper, SwiperSlide, useSwiper } from "swiper/vue";
+import "swiper/css";
 
 export default defineComponent({
   name: "CarouselComponent",
   components: {
-    Carousel,
-    Slide,
     Cursor,
-    Canvas,
     Project,
+    Swiper,
+    SwiperSlide,
   },
+  setup() {
+    const swiper = useSwiper();
+    return {
+      swiper,
+    };
+  },
+
   data() {
     return {
-      cursorLabel: "Prev",
+      cursorLabel: "",
       cursorX: 0,
       cursorY: 0,
       slides: [],
@@ -46,14 +53,16 @@ export default defineComponent({
   },
   methods: {
     handleClick(event) {
+      const swiper = document.querySelector(".swiper").swiper;
+
       if (event.target.className == "video") {
         const clickX = event.clientX;
         if (clickX > window.innerWidth / 2) {
-          this.$refs.myCarousel.next();
+          swiper.slideNext();
         } else {
-          this.$refs.myCarousel.prev();
+          swiper.slidePrev();
         }
-        this.$refs.myCarousel.updateSlideWidth();
+        // this.$refs.myCarousel.updateSlideWidth();
       }
     },
     handleMouseMove(event) {
@@ -62,7 +71,7 @@ export default defineComponent({
       this.cursorLabel =
         event.clientX > window.innerWidth / 2 ? "Next" : "Prev";
     },
-    fetchSlides() {
+    async fetchSlides() {
       try {
         this.slides = projectList.projects;
       } catch (error) {
@@ -78,7 +87,7 @@ export default defineComponent({
 
 <style>
 .carousel__slide {
-  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
 }

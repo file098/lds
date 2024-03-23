@@ -1,66 +1,88 @@
 <template>
-  <div v-if="!videosLoaded" class="video-loader">
-    <!-- Your loading animation goes here -->
-    <div class="loader-animation">
-      <!-- Example: Using a spinner -->
-      <h1>ciao</h1>
+  <div class="animation__container">
+    <div
+      class="white__slide"
+      :class="{ active__slide: removeBackground }"
+    ></div>
+    <div class="loading-page">
+      <Vue3Lottie
+        ref="anim"
+        :animationData="animation"
+        :delay="1000"
+        class="animation__wrapper"
+        :loop="false"
+        @onComplete="this.stopAnimation()"
+      />
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "LandingComponant",
+import { defineComponent } from "vue";
+import animation from "@/assets/lds-logo-animation.json";
+import { Vue3Lottie } from "vue3-lottie";
+
+export default defineComponent({
+  name: "LandingComponent",
+  components: { Vue3Lottie },
   data() {
     return {
-      videosLoaded: false,
+      removeBackground: false,
+      animation,
     };
   },
-  mounted() {
-    this.checkVideoLoading();
-  },
   methods: {
-    checkVideoLoading() {
-      const videos = document.querySelectorAll("video");
-
-      let loadedCount = 0;
-      videos.forEach((video) => {
-        if (video.readyState >= 4) {
-          loadedCount++;
-        } else {
-          video.addEventListener("loadeddata", () => {
-            loadedCount++;
-            if (loadedCount === videos.length) {
-              this.videosLoaded = true;
-            }
-          });
-        }
-      });
-
-      // If all videos are already loaded
-      if (loadedCount === videos.length) {
-        this.videosLoaded = true;
-      }
+    play() {
+      this.$refs.anim.play();
+    },
+    stopAnimation() {
+      this.$refs.anim.stop();
+      this.removeBackground = false;
+      this.$emit("animationDone"); // Emit event when animation is done
     },
   },
-};
+  mounted() {
+    setTimeout(() => {
+      this.removeBackground = true;
+      this.play();
+    }, 500);
+  },
+});
 </script>
 
-<style scoped>
-.video-loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* Ensure it's above everything else */
-}
+<style scoped lang="scss">
+.animation__container {
+  & .white__slide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 100svh;
+    z-index: 999;
+    background-color: white;
+    transition: transform 0.5s cubic-bezier(1, 0, 0, 0.9); /* Smooth transition for transform */
+    transform: translateY(0);
 
-.loader-animation {
-  /* Add your loader animation styles here */
+    &.active__slide {
+      transform: translateY(100%);
+    }
+  }
+
+  & .loading-page {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    width: 100svw;
+    background-color: black;
+    z-index: 998;
+
+    & .animation__wrapper {
+      max-width: 20%;
+      max-height: 20%;
+      filter: invert(1) blur(1.5px);
+    }
+  }
 }
 </style>

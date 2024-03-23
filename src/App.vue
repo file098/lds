@@ -1,7 +1,9 @@
 <template>
-  <Landing></Landing>
-  <Header></Header>
-  <Carousel></Carousel>
+  <section v-if="loaded">
+    <Header />
+    <Carousel />
+  </section>
+  <Landing v-else @animationDone="handleAnimationDone" />
 </template>
 
 <script>
@@ -15,6 +17,18 @@ export default {
     Header,
     Carousel,
     Landing,
+  },
+  data() {
+    return {
+      loaded: false,
+    };
+  },
+  methods: {
+    handleAnimationDone() {
+      // Do something when animation is done
+      this.loaded = true;
+      console.log("Animation done");
+    },
   },
 };
 </script>
@@ -31,8 +45,10 @@ body {
   font-display: auto;
   unicode-range: U+000-5FF;
   src: local("OverusedGrotesk"),
-    url("../public/fonts/OverusedGrotesk/OverusedGroteskSemiBold.woff2") format("woff2"),
-    url("../public/fonts/OverusedGrotesk/OverusedGroteskSemiBold.woff") format("woff");
+    url("../public/fonts/OverusedGrotesk/OverusedGroteskSemiBold.woff2")
+      format("woff2"),
+    url("../public/fonts/OverusedGrotesk/OverusedGroteskSemiBold.woff")
+      format("woff");
 }
 
 #app {
