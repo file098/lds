@@ -20,14 +20,12 @@ export default {
   },
   data() {
     return {
-      loaded: false,
+      loaded: true,
     };
   },
   methods: {
     handleAnimationDone() {
-      // Do something when animation is done
       this.loaded = true;
-      console.log("Animation done");
     },
   },
 };

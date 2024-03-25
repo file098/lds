@@ -1,15 +1,7 @@
 <template>
   <div class="carousel__item" ref="carouselItem">
     <div class="video-wrapper">
-      <video
-        ref="videoElement"
-        preload
-        autoplay
-        muted
-        loop
-        playsinline
-        class="video"
-      >
+      <video ref="videoElement" autoplay muted loop playsinline class="video">
         <source :src="project.media" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -36,7 +28,6 @@
 import { defineComponent } from "vue";
 import ButtonComponent from "@/components/Button.vue";
 import LinkComponent from "@/components/Link.vue";
-import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
   name: "ProjectComponent",
@@ -92,7 +83,6 @@ export default defineComponent({
 }
 
 .description__wrapper {
-  width: 100%;
   background: linear-gradient(to bottom, #f4f4f4, #e5e5e5);
 
   max-height: 0;
@@ -102,24 +92,24 @@ export default defineComponent({
   &.expand {
     max-height: 50vh;
   }
-}
 
-.description__content {
-  display: flex;
-  flex-flow: row;
-}
+  & .description__content {
+    display: flex;
+    flex-flow: row;
 
-.description__paragraph {
-  margin-left: 10px;
-  flex: 2;
-  text-align: start;
-}
+    & .description__paragraph {
+      margin-left: 10px;
+      flex: 2;
+      text-align: start;
+    }
 
-.description__link {
-  flex: 1;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding: 1rem;
+    & .description__link {
+      flex: 1;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+  }
 }
 
 video {
@@ -143,5 +133,11 @@ video {
   position: relative;
   color: white;
   text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-width: 800px) {
+  .description__wrapper .description__content {
+    flex-flow: column;
+  }
 }
 </style>

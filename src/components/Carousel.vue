@@ -25,7 +25,7 @@ import Cursor from "./Cursor.vue";
 import Project from "./Project.vue";
 import projectList from "@/assets/projectList.json";
 
-import { Swiper, SwiperSlide, useSwiper } from "swiper/vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 
 export default defineComponent({
@@ -37,9 +37,11 @@ export default defineComponent({
     SwiperSlide,
   },
   setup() {
-    const swiper = useSwiper();
+    const onSwiper = () => {};
+    const onSlideChange = () => {};
     return {
-      swiper,
+      onSwiper,
+      onSlideChange,
     };
   },
 
@@ -62,7 +64,6 @@ export default defineComponent({
         } else {
           swiper.slidePrev();
         }
-        // this.$refs.myCarousel.updateSlideWidth();
       }
     },
     handleMouseMove(event) {

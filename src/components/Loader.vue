@@ -29,31 +29,12 @@ export default defineComponent({
   },
   methods: {
     handleVideoLoaded() {
-      // Set videoLoaded to true once the first video is loaded
       this.videoLoaded = true;
     },
     stopAnimation() {
       this.$refs.anim.stop();
       this.videoLoaded = true;
     },
-  },
-  mounted() {
-    // Assuming you have access to video elements in your carousel
-    const firstVideo = document.querySelector(".carousel__slide video");
-    console.log(firstVideo);
-
-    // if (firstVideo.readyState >= 4) {
-    //   // If video is already loaded, set videoLoaded to true immediately
-    //   this.videoLoaded = true;
-    // } else {
-    //   // If video is not yet loaded, listen for the 'loadeddata' event
-    //   firstVideo.addEventListener("loadeddata", this.handleVideoLoaded);
-    // }
-  },
-  beforeUnmount() {
-    // Remove event listener to prevent memory leaks
-    const firstVideo = document.querySelector(".carousel__slide video");
-    firstVideo.removeEventListener("loadeddata", this.handleVideoLoaded);
   },
 });
 </script>

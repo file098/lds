@@ -15,19 +15,17 @@ export default defineComponent({
   methods: {
     createSketch() {
       const sketch = (p) => {
-        let lds_logo;
+        let obj;
         let angleX = 0;
         let angleY = 0;
         p.preload = () => {
-          lds_logo = p.loadModel("/3d/ldsLogo.obj", true);
+          obj = p.loadModel("/3d/model.obj", true);
         };
-
         p.setup = () => {
           const container = this.$refs.canvas;
           const width = container.offsetWidth;
           const height = container.offsetHeight;
           p.createCanvas(width, height, p.WEBGL);
-          p.background(220);
         };
         p.windowResized = () => {
           const container = this.$refs.canvas;
@@ -36,28 +34,36 @@ export default defineComponent({
           p.resizeCanvas(width, height);
         };
         p.draw = () => {
-          p.clear();
-
-          const maxAngle = p.PI / 6;
+          p.background(220);
+          const maxAngle = p.PI / 4.5;
           angleX = p.map(p.mouseY, 0, p.height, -maxAngle, maxAngle);
           angleY = p.map(p.mouseX, 0, p.width, -maxAngle, maxAngle);
 
           p.rotateX(angleX);
           p.rotateY(angleY);
 
-          p.ambientLight(100, 100, 100);
-          p.directionalLight(200, 200, 200, 1, 0.5, -1);
-          p.directionalLight(70, 70, 100, -0.5, 1, 0.5);
+          p.noStroke();
+          p.pointLight(
+            255,
+            255,
+            255,
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            100
+          );
+          p.specularMaterial(255, 255, 255);
+          p.shininess(100);
+          p.fill(0);
           p.scale(2, -2, 2);
-          p.fill("black");
-          p.model(lds_logo);
+
+          p.model(obj);
         };
       };
       this.p5Instance = new p5(sketch, this.$refs.canvas);
     },
     windowResized() {
-      this.p5Instance.remove(); // Remove the old instance
-      this.createSketch(); // Create a new instance
+      this.p5Instance.remove();
+      this.createSketch();
     },
     beforeDestroy() {
       this.p5Instance.remove();
