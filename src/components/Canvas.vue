@@ -26,7 +26,10 @@ export default defineComponent({
         let gamma = 0
 
         p.preload = () => {
-          obj = p.loadModel('/src/assets/model.obj', true)
+          obj = p.loadModel(
+            'https://raw.githubusercontent.com/delsallorenzo/lds/main/public/3d/model.obj',
+            true
+          )
         }
         p.setup = () => {
           const container = this.$refs.canvas
@@ -62,7 +65,7 @@ export default defineComponent({
           const heightRatio = p.map(window.innerHeight, 0, 1080, 1, 2)
           const ratio = Math.min(widthRatio, heightRatio)
           p.scale(ratio, -ratio, ratio)
-          
+
           p.model(obj)
         }
       }
