@@ -1,6 +1,11 @@
 <template>
   <div class="curtain" :class="{ dropToBottom: curtainDrop }"></div>
-  <Cursor :label="cursorLabel" :cursorX="cursorX" :cursorY="cursorY" />
+  <Cursor
+    v-show="!store.mobileCheck()"
+    :label="cursorLabel"
+    :cursorX="cursorX"
+    :cursorY="cursorY"
+  />
   <swiper
     :loop="true"
     @swiper="onSwiper"
@@ -57,7 +62,7 @@ export default defineComponent({
   methods: {
     handleClick(event) {
       const swiper = document.querySelector('.swiper').swiper
-      if (event.target.className == 'video' && window.innerWidth > 900) {
+      if (event.target.className == 'video' && !store.mobileCheck()) {
         const clickX = event.clientX
         clickX > window.innerWidth / 2 ? swiper.slideNext() : swiper.slidePrev()
       }

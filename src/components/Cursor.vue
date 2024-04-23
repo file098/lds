@@ -28,10 +28,4 @@ export default defineComponent({
   filter: invert(1);
   z-index: 2;
 }
-
-@media screen and (max-width: 800px) {
-  .cursor__label {
-    display: none;
-  }
-}
 </style>

@@ -58,6 +58,6 @@ export default defineComponent({
   display: flex;
   align-items: center;
   padding: 5px;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s cubic-bezier(1, 0, 0, 0.9);
 }
 </style>

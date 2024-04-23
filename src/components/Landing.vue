@@ -3,7 +3,7 @@
     <Vue3Lottie
       ref="anim"
       :animationData="animation"
-      :delay="1000"
+      :delay="750"
       class="animation__wrapper"
       :loop="false"
       @onComplete="handleAnimationComplete"

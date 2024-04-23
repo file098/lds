@@ -1,9 +1,8 @@
 <template>
   <div class="carousel__item" ref="carouselItem">
     <div class="video-wrapper">
-      <video ref="videoElement" autoplay muted loop playsinline class="video">
+      <video autoplay muted playsinline loop preload="auto" class="video">
         <source :src="project.media" type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
       <ButtonComponent
         :textBox="project.title"
@@ -51,11 +50,18 @@ export default defineComponent({
       link: { type: String },
       media: { type: String }
     }
+  },
+  mounted() {
+    var myVideo = document.querySelector('video')[0]
+    if (myVideo) {
+      myVideo.muted = true // Sorry audiophiles, videos need to quiet down for autoplay!
+      myVideo.play()
+    }
   }
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .carousel__item {
   height: 100svh;
   width: 100svw;
@@ -136,5 +142,15 @@ export default defineComponent({
       max-width: 100%;
     }
   }
+}
+
+/* Target the pseudo-element associated with the video controls */
+.video::-webkit-media-controls {
+  display: none !important;
+}
+
+/* Target the pseudo-element associated with the inner div containing the controls */
+.video::-webkit-media-controls-enclosure {
+  display: none !important;
 }
 </style>
