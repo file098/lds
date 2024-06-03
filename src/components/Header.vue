@@ -23,8 +23,9 @@
         </div>
         <div class="contacts">
           <LinkComponent :text="'Mail'" :link="'mailto:info@lorenzodelsal.com'" />
-          <LinkComponent :text="'Instagram'" :link="'https://www.instagram.com/lorenzodelsal/'" />
-        </div>
+	        <LinkComponent :text="'Instagram'" :link="'https://www.instagram.com/lorenzodelsal/'" />
+		      <LinkComponent :text="'Are.na'" :link="'https://www.are.na/lorenzo-del-sal/portfolio-i6c3zvfn9bm'" />
+			  </div>
       </div>
       <div class="test">
         <ButtonComponent
